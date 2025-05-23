@@ -1,0 +1,95 @@
+\RequirePackage{fontspec}
+\RequirePackage{tikz}
+\RequirePackage[nodayofweek]{datetime}
+\RequirePackage[UKenglish]{babel}
+\RequirePackage[UKenglish]{isodate}
+\mode<presentation>
+
+\beamer@centeredfalse
+
+\cleanlookdateon
+
+% stuff for tagging - experimental!
+\newif\if@doTagging
+\@doTaggingfalse
+\DeclareOption{tagging}{\@doTaggingtrue}
+\ProcessOptions
+
+\if@doTagging
+    \RequirePackage{pdfmanagement-testphase}
+    \DeclareDocumentMetadata{uncompress,pdfversion=2.0}
+    \RequirePackage{tagpdf}
+    \RequirePackage{pdfcomment}
+\fi
+%end tagging stuff
+
+\setbeamersize{
+    text margin left=0.74cm,
+    text margin right=1cm
+}
+
+\setmainfont{Carlito}
+\setsansfont{Carlito}
+\definecolor{rgupurple}{HTML}{712177}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamerfont{title}{series=\bfseries,size={\fontsize{26}{10}}}
+\setbeamerfont{frametitle}{series=\bfseries,size={\fontsize{18}{10}}}
+\setbeamerfont{subtitle}{series=\mdseries,size={\fontsize{12}{24}}}
+
+\setbeamertemplate{title page}{
+    \begin{tikzpicture}[remember picture,overlay]
+            \node[at=(current page.center)] {
+                \includegraphics[keepaspectratio,
+                                 width=\paperwidth,
+                                 height=\paperheight]{sty/res/rgu-slide-title-background.pdf}
+            };
+        \end{tikzpicture}
+    \vspace*{0.22\textheight}
+    \setbeamercolor{title}{fg=rgupurple}
+    
+    {\usebeamerfont{title}\textcolor{rgupurple}{\inserttitle}}\\
+    \vspace*{-0.2em}
+    \usebeamerfont{subtitle}\insertauthor
+    \addtocounter{framenumber}{-1}
+
+
+}
+
+\setbeamertemplate{frametitle}{
+    \begin{beamercolorbox}[wd=\paperwidth,ht=6.4ex,dp=0.6ex]{frametitle}
+        \hspace*{1.2em}{\usebeamerfont{frametitle}\textcolor{rgupurple}{\bfseries\insertframetitle}}
+    \end{beamercolorbox}%
+    \vspace*{-0.3em}
+}
+\setbeamertemplate{background}{
+    \includegraphics[width=\paperwidth,height=\paperheight]{sty/res/rgu-slide-background.pdf}
+}
+
+\setbeamertemplate{footline}{
+        
+        \begin{tikzpicture}[remember picture, overlay]
+            \draw (1.29,0.45) node {\color{rgupurple}\insertdate};
+            \ifnum \theframenumber > 0
+                \draw (15.2,0.45) node {\color{rgupurple}\insertframenumber};
+            \fi
+        \end{tikzpicture}
+}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize items}[default]
+\setbeamertemplate{itemize item}[circle]
+\setbeamertemplate{itemize subitem}[circle]
+\setbeamertemplate{itemize subsubitem}[circle]
+
+
+\setbeamercolor{itemize/enumerate subbody}{fg=rgupurple!100!white}
+\setbeamercolor{itemize/enumerate subsubbody}{fg=black!100!white}
+\setbeamercolor{itemize item}{fg=black!100!white}
+\setbeamercolor{itemize subitem}{fg=rgupurple!100!white}
+\setbeamercolor{itemize subsubitem}{fg=black!100!white}
+
+%fix bullet alignment
+\settowidth{\leftmargini}{\usebeamertemplate{itemize item}}
+\addtolength{\leftmargini}{\labelsep}
+
